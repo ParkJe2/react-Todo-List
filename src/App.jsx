@@ -8,7 +8,8 @@ import TodoList from './components/TodoList';
 function App() {
   const id = uuidv4();
   // 값 변경 + 리렌더링을 위한 State 선언
-  const [todos, setTodos] = useState([{ id, title: '프로그래머스', content: '하루에 5문제씩 풀어보기', isDone: false }]);
+  const [todos, setTodos] = useState(() => JSON.parse(window.localStorage.getItem('todos')) || []);
+  window.localStorage.setItem('todos', JSON.stringify(todos));
   const [doneTodos, setDoneTodo] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
