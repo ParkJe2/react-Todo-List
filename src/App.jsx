@@ -7,10 +7,11 @@ import TodoList from './components/TodoList';
 
 function App() {
   const id = uuidv4();
-  // 값 변경 + 리렌더링을 위한 State 선언
+  // 값 변경 + 리렌더링을 위한 State 선언 + 로컬스토리지
   const [todos, setTodos] = useState(() => JSON.parse(window.localStorage.getItem('todos')) || []);
   window.localStorage.setItem('todos', JSON.stringify(todos));
-  const [doneTodos, setDoneTodo] = useState([]);
+  const [doneTodos, setDoneTodo] = useState(() => JSON.parse(window.localStorage.getItem('doneTodos')) || []);
+  window.localStorage.setItem('doneTodos', JSON.stringify(doneTodos));
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
