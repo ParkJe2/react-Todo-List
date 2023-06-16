@@ -8,10 +8,10 @@ import TodoList from './components/TodoList';
 function App() {
   const id = uuidv4();
   // 값 변경 + 리렌더링을 위한 State 선언 + 로컬스토리지
-  const [todos, setTodos] = useState(() => JSON.parse(window.localStorage.getItem('todos')) || []);
-  window.localStorage.setItem('todos', JSON.stringify(todos));
-  const [doneTodos, setDoneTodo] = useState(() => JSON.parse(window.localStorage.getItem('doneTodos')) || []);
-  window.localStorage.setItem('doneTodos', JSON.stringify(doneTodos));
+  const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || []);
+  localStorage.setItem('todos', JSON.stringify(todos));
+  const [doneTodos, setDoneTodo] = useState(() => JSON.parse(localStorage.getItem('doneTodos')) || []);
+  localStorage.setItem('doneTodos', JSON.stringify(doneTodos));
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -46,16 +46,16 @@ function App() {
   };
   // '삭제' 버튼 클릭 이벤트
   const clickDelBtnHandler = (id) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
+    const newWorkingTodos = todos.filter((todo) => todo.id !== id);
     const newDoneTodos = doneTodos.filter((item) => item.id !== id);
-    setTodos(newTodos);
+    setTodos(newWorkingTodos);
     setDoneTodo(newDoneTodos);
   };
 
   // '완료' 버튼 클릭 이벤트
   const clickDoneBtnHandler = (id) => {
-    const DoneItem = todos.find((item) => item.id === id);
-    setDoneTodo([...doneTodos, DoneItem]);
+    const newDoneTodos = todos.find((item) => item.id === id);
+    setDoneTodo([...doneTodos, newDoneTodos]);
     setTodos(todos.filter((item) => item.id !== id));
   };
 
