@@ -1,6 +1,29 @@
 import React from 'react';
 
-const TodoList = ({ item, clickDelBtnHandler, clickDoneBtnHandler, clickCancelBtnHandler, isDone }) => {
+const TodoList = ({ item, todos, setTodos, doneTodos, setDoneTodo, isDone }) => {
+  // '삭제' 버튼 클릭 이벤트
+  const clickDelBtnHandler = (id) => {
+    const newWorkingTodos = todos.filter((todo) => todo.id !== id);
+    const newDoneTodos = doneTodos.filter((item) => item.id !== id);
+    setTodos(newWorkingTodos);
+    setDoneTodo(newDoneTodos);
+  };
+
+  // '완료' 버튼 클릭 이벤트
+  const clickDoneBtnHandler = (id) => {
+    const newDoneTodos = todos.find((item) => item.id === id);
+    setDoneTodo([...doneTodos, newDoneTodos]);
+    setTodos(todos.filter((item) => item.id !== id));
+  };
+
+  // '취소' 버튼 클릭 이벤트
+  const clickCancelBtnHandler = (id) => {
+    const canceledItem = doneTodos.find((item) => item.id === id);
+    const newDoneTodos = doneTodos.filter((item) => item.id !== id);
+    setDoneTodo(newDoneTodos);
+    setTodos([...todos, canceledItem]);
+  };
+
   return (
     <div className="todo-container" key={item.id}>
       <h2 className="todo-title">{item.title}</h2>
